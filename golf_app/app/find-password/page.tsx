@@ -46,7 +46,7 @@ export default function FindPasswordPage() {
     <div
       className="relative min-h-screen flex items-center justify-center px-4 py-12"
       style={{
-        backgroundImage: 'url(/golfzone.jpg)',
+        background: 'linear-gradient(135deg, #1e3a5f 0%, #3952B6 50%, #00ACEE 100%)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
