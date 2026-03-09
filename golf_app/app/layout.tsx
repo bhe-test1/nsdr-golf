@@ -55,18 +55,18 @@ export default function RootLayout({
         <title>{isPortfolioPage ? "캐디BAE · 개발 포트폴리오" : "캐디BAE"}</title>
         <meta name="google-adsense-account" content="ca-pub-2179728846678072" />
       </head>
-      <body className={`${inter.className} ${isStandalonePage ? "" : "h-full overflow-hidden"}`}>
+      <body className={`${inter.className} ${isStandalonePage ? "" : "h-full overflow-hidden flex flex-col"}`}>
         {!isStandalonePage && (
-          <div className="hidden md:block">
+          <div className="hidden md:block flex-shrink-0">
             <DesktopHeader />
           </div>
         )}
         {(pathname === '/' || pathname === '/stores') && (
-          <div className="md:hidden">
+          <div className="md:hidden flex-shrink-0">
             <MobileHomeHeader />
           </div>
         )}
-        <main className={isStandalonePage ? "pb-20 md:pb-0" : "h-screen overflow-y-auto overflow-x-hidden pb-20 md:pb-0"}>{children}</main>
+        <main className={isStandalonePage ? "pb-20 md:pb-0" : "flex-1 min-h-0 overflow-hidden overflow-x-hidden pb-20 md:pb-0"}>{children}</main>
         {!isStandalonePage && (
           <div className="md:hidden">
             <Suspense fallback={<div className="h-14 flex-shrink-0" />}>

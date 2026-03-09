@@ -1071,7 +1071,7 @@ export default function MapView({ mobileRegion, initialTab }: MapViewProps = {})
       )}
 
       {/* 오른쪽 영역 - 모바일은 항상 목록, 데스크톱은 지도 */}
-      <div className="flex-1 min-w-0 relative overflow-hidden flex flex-col">
+      <div className="flex-1 min-w-0 min-h-0 relative overflow-hidden flex flex-col">
         {/* 모바일 전용: 스크린 골프/골프연습장/파크골프 탭 모두 목록 뷰 (PC처럼) */}
         <div className="md:hidden flex-1 flex flex-col overflow-hidden min-h-0 bg-white">
             <div className="flex-shrink-0 p-3 pb-2 border-b border-gray-100 flex gap-2 items-stretch">
@@ -1098,7 +1098,7 @@ export default function MapView({ mobileRegion, initialTab }: MapViewProps = {})
                 <span className="truncate">즐겨찾는 매장</span>
               </button>
             </div>
-            <div className="flex-1 overflow-y-auto min-h-0 p-3">
+            <div className="flex-1 overflow-y-auto overflow-x-hidden min-h-0 p-3 overscroll-contain">
               {mobileListFacilities.length === 0 ? (
                 <div className="py-8 text-center text-gray-500 text-sm">
                   {isFavoritesActive ? '즐겨찾는 매장이 없습니다.' : '등록된 매장이 없습니다.'}
