@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// 삭제된 컬렉션들 - 자동 생성 방지를 위해 주석 처리
+// model Admin {
+//   id          String    @id @default(auto()) @map("_id") @db.ObjectId
+//   email       String    @unique
+//   password    String
+//   name        String
+//   phone       String?
+//   createdAt   DateTime  @default(now()) @map("created_at")
+//   updatedAt   DateTime  @updatedAt @map("updated_at")
+//   lastLoginAt DateTime? @map("last_login_at")
+//   status      String    @default("active") @map("status")
+//
+//   @@map("admin")
+// }
+
+model Owner {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  email        String   @unique
+  password     String
+  name         String
+  phone        String?
+  branchNumber String?  @map("branch_number")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  status       String   @default("active") @map("status")
+
+  @@map("owners")
+}
+
+// model Store {
+//   id          String   @id @default(auto()) @map("_id") @db.ObjectId
+//   name        String
+//   type        String?
+//   location    String
+//   latitude    Float?
+//   longitude   Float?
+//   description String?
+//   imageUrl    String?  @map("image_url")
+//   ownerId     String?  @map("owner_id") @db.ObjectId
+//   createdAt   DateTime @default(now()) @map("created_at")
+//   updatedAt   DateTime @updatedAt @map("updated_at")
+//   news        String?
+//   notice      String?
+//   parking     String?
+//
+//   @@index([ownerId])
+//   @@map("stores")
+// }
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  password  String
+  name      String
+  phone     String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Reservation {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @map("user_id") @db.ObjectId
+  storeId   String   @map("store_id") @db.ObjectId
+  date      DateTime
+  time      String
+  players   Int?     @default(4)
+  status    String   @default("PENDING")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([storeId])
+  @@map("reservations")
+}
+
+model Login {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  ownerId      String   @unique @map("owner_id") @db.ObjectId
+  name         String
+  email        String
+  phone        String
+  password     String
+  branchNumber String?  @map("branch_number")
+  status       String   @default("active") @map("status")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("login")
+}
+
+model Notice {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  content     String
+  type        String   @default("공지") @map("type")
+  isImportant Boolean  @default(false) @map("is_important")
+  imageUrl    String?  @map("image_url")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("notices")
+}
+
+model Price {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  ownerId     String   @unique @map("owner_id") @db.ObjectId
+  gamePrices  Json     @map("game_prices")
+  foodPrices  Json     @map("food_prices")
+  golfPrices  Json     @map("golf_prices")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("price")
+}

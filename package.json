@@ -1,4 +1,10 @@
 {
+  "name": "nsdr-golf",
+  "private": true,
+  "scripts": {
+    "build": "cd golf_app && npm install && npx prisma generate && npm run build",
+    "start": "cd golf_app && npm start"
+  },
   "dependencies": {
     "eslint-config-next": "^16.1.6",
     "mongodb": "^7.0.0",
