@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: #ffffff;
+}
+
+/* 스크롤바 숨기기 */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  /* 모바일에서만 네이버 지도 로고 비표시 */
+  .naver-map-wrap [class*="logo"],
+  .naver-map-wrap [class*="Logo"],
+  .naver-map-wrap a[href*="naver"] img,
+  .naver-map-wrap a[href*="naver.com"],
+  .naver-map-wrap a[href*="naver.co"],
+  .naver-map-wrap a[href*="nid.naver"] {
+    display: none !important;
+    visibility: hidden !important;
+  }
+}
+
+/* 네이버 지도 로고 이미지 비표시 (주입되는 img 요소) */
+.naver-map-wrap img[src*="naver-logo"],
+.naver-map-wrap img[src*="new-naver-logo-normal"],
+.naver-map-wrap img[alt="NAVER"] {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+.naver-map-wrap a:has(img[src*="naver-logo"]),
+.naver-map-wrap a:has(img[alt="NAVER"]) {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* 배경 애니메이션 */
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* 페이드인 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* 슬라이드 인 애니메이션 (왼쪽에서) */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+/* 슬라이드 인 애니메이션 (오른쪽에서) */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.3s ease-out;
+}
+
+/* 헤더 글래스모피즘 효과 */
+@supports (backdrop-filter: blur(10px)) {
+  .glass-header {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+}
+
+/* 그라데이션 텍스트 효과 */
+.gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 부드러운 호버 효과 */
+.smooth-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.smooth-hover:hover {
+  transform: translateY(-2px);
+}
+

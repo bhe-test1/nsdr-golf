@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "eslint-config-next": "^16.1.6",
+    "mongodb": "^7.0.0",
+    "next": "^16.1.6",
+    "nodemailer": "^7.0.13",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "resend": "^6.9.1"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^7.0.9"
+  }
+}

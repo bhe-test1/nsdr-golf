@@ -1,0 +1,13 @@
+# 공통 제외 (golf_app, pos_admin, power_admin 등)
+**/node_modules/
+**/.next/
+**/out/
+**/build/
+**/.vercel/
+**/.env
+**/.env.local
+**/.env*.local
+**/coverage/
+.DS_Store
+*.pem
+*.tsbuildinfo

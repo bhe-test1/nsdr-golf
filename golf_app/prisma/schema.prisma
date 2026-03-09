@@ -1,0 +1,140 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
+  email              String    @unique
+  password           String
+  name               String
+  phone              String
+  resetToken         String?   @map("reset_token")
+  resetTokenExpiry   DateTime? @map("reset_token_expiry")
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+  posts              Post[]
+  comments           Comment[]
+  favorites          Favorite[]
+
+  @@map("users")
+}
+
+// 삭제된 컬렉션들 - 자동 생성 방지를 위해 주석 처리
+// model Owner {
+//   id           String   @id @default(auto()) @map("_id") @db.ObjectId
+//   email        String   @unique
+//   password     String
+//   name         String
+//   phone        String?
+//   branchNumber String?  @map("branch_number")
+//   createdAt    DateTime @default(now()) @map("created_at")
+//   updatedAt    DateTime @updatedAt @map("updated_at")
+//   status       String   @default("active") @map("status")
+//
+//   @@map("owners")
+// }
+
+model Store {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  type        String?
+  location    String
+  latitude    Float?
+  longitude   Float?
+  description String?
+  imageUrl    String?  @map("image_url")
+  ownerId     String?  @map("owner_id") @db.ObjectId
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  news        String?
+  notice      String?
+  parking     String?
+  price       Int?     @default(0)
+  rating      Float?   @default(0)
+  reviewCount Int?     @default(0) @map("review_count")
+  favorites   Favorite[]
+
+  @@index([ownerId])
+  @@map("stores")
+}
+
+// model Reservation {
+//   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+//   userId    String   @map("user_id") @db.ObjectId
+//   storeId   String   @map("store_id") @db.ObjectId
+//   date      DateTime
+//   time      String
+//   players   Int?     @default(4)
+//   status    String   @default("PENDING")
+//   createdAt DateTime @default(now()) @map("created_at")
+//   updatedAt DateTime @updatedAt @map("updated_at")
+//
+//   @@index([userId])
+//   @@index([storeId])
+//   @@map("reservations")
+// }
+
+model Favorite {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @map("user_id") @db.ObjectId
+  storeId   String   @map("store_id") @db.ObjectId
+  createdAt DateTime @default(now()) @map("created_at")
+  user      User     @relation(fields: [userId], references: [id])
+  store     Store    @relation(fields: [storeId], references: [id])
+
+  @@unique([userId, storeId])
+  @@index([userId])
+  @@index([storeId])
+  @@map("favorites")
+}
+
+model Notice {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  title          String
+  content        String
+  type           String   @default("공지") @map("type")
+  targetAudience String?  @map("target_audience")
+  isImportant    Boolean  @default(false) @map("is_important")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("notices")
+}
+
+model Post {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @map("user_id") @db.ObjectId
+  title     String
+  content   String
+  category  String   @default("general")
+  likes     Int      @default(0)
+  isHot     Boolean  @default(false) @map("is_hot")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  user      User     @relation(fields: [userId], references: [id])
+  comments  Comment[]
+
+  @@index([userId])
+  @@map("posts")
+}
+
+model Comment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  postId    String   @map("post_id") @db.ObjectId
+  userId    String   @map("user_id") @db.ObjectId
+  content   String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  post      Post     @relation(fields: [postId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([postId])
+  @@index([userId])
+  @@map("comments")
+}
+

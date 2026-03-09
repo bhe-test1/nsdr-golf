@@ -1,0 +1,69 @@
+services:
+  # Golf App (사용자 앱)
+  - type: web
+    name: golf-app
+    env: node
+    plan: starter
+    buildCommand: cd golf_app && npm install && npx prisma generate && npm run build
+    startCommand: cd golf_app && npm start
+    region: singapore
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: NEXTAUTH_SECRET
+        generateValue: true
+      - key: NEXTAUTH_URL
+        sync: false
+    healthCheckPath: /
+    autoDeploy: true
+
+  # POS Admin (점주 관리 앱)
+  - type: web
+    name: pos-admin
+    env: node
+    plan: starter
+    buildCommand: cd pos_admin && npm install && npx prisma generate && npm run build
+    startCommand: cd pos_admin && npm start
+    region: singapore
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_REGION
+        sync: false
+      - key: AWS_S3_BUCKET_NAME
+        sync: false
+    healthCheckPath: /
+    autoDeploy: true
+
+  # Power Admin (슈퍼 관리자 앱)
+  - type: web
+    name: power-admin
+    env: node
+    plan: starter
+    buildCommand: cd power_admin && npm install && npx prisma generate && npm run build
+    startCommand: cd power_admin && npm start
+    region: singapore
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_REGION
+        sync: false
+      - key: AWS_S3_BUCKET_NAME
+        sync: false
+    healthCheckPath: /
+    autoDeploy: true
+

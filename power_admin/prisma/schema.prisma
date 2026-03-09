@@ -1,0 +1,133 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  email      String    @unique
+  password   String
+  name       String
+  phone      String?
+  status     String    @default("active") @map("status")
+  lastLoginAt DateTime? @map("last_login_at")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+
+  @@map("admin")
+}
+
+model Owner {
+  id                      String    @id @default(auto()) @map("_id") @db.ObjectId
+  email                   String?
+  password                String
+  name                    String
+  phone                   String?
+  branchNumber            String?   @map("branch_number")
+  businessRegistrationNumber String? @map("business_registration_number")
+  representativeName      String?   @map("representative_name")
+  storeName               String?   @map("store_name")
+  storeOpenDate           DateTime? @map("store_open_date")
+  address                 String?   @map("address")
+  detailAddress           String?   @map("detail_address")
+  storeType               String?   @map("store_type")
+  platform                String?   @map("platform")
+  status                  String    @default("active") @map("status")
+  createdAt               DateTime  @default(now()) @map("created_at")
+  updatedAt               DateTime  @updatedAt @map("updated_at")
+  stores                  Store[]
+
+  @@map("store_owner")
+}
+
+model Store {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  type        String?
+  location    String
+  latitude    Float?
+  longitude   Float?
+  description String?
+  imageUrl    String?  @map("image_url")
+  ownerId     String?  @map("owner_id") @db.ObjectId
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  news        String?
+  notice      String?
+  parking     String?
+  owner       Owner?   @relation(fields: [ownerId], references: [id])
+
+  @@index([ownerId])
+  @@map("store_mapping")
+}
+
+// model User {
+//   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+//   email     String   @unique
+//   password  String
+//   name      String
+//   phone     String?
+//   createdAt DateTime @default(now()) @map("created_at")
+//   updatedAt DateTime @updatedAt @map("updated_at")
+//
+//   @@map("users")
+// }
+
+// model Reservation {
+//   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+//   userId    String   @map("user_id") @db.ObjectId
+//   storeId   String   @map("store_id") @db.ObjectId
+//   date      DateTime
+//   time      String
+//   status    String   @default("PENDING")
+//   createdAt DateTime @default(now()) @map("created_at")
+//   updatedAt DateTime @updatedAt @map("updated_at")
+//
+//   @@index([userId])
+//   @@index([storeId])
+//   @@map("reservations")
+// }
+
+// model Favorite {
+//   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+//   userId    String   @map("user_id") @db.ObjectId
+//   storeId   String   @map("store_id") @db.ObjectId
+//   createdAt DateTime @default(now()) @map("created_at")
+//
+//   @@unique([userId, storeId])
+//   @@map("favorites")
+// }
+
+model Notice {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  title          String
+  content        String
+  type           String   @default("공지") @map("type")
+  targetAudience String?  @map("target_audience")
+  isImportant    Boolean  @default(false) @map("is_important")
+  imageUrl       String?  @map("image_url")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("notices")
+}
+
+model ActivityLog {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  adminId     String?  @map("admin_id") @db.ObjectId
+  adminName   String   @map("admin_name")
+  action      String
+  targetType  String?  @map("target_type")
+  targetId    String?  @map("target_id") @db.ObjectId
+  targetName  String?  @map("target_name")
+  description String
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([adminId])
+  @@index([createdAt])
+  @@map("activity_logs")
+}

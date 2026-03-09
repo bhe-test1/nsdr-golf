@@ -1,0 +1,36 @@
+{
+  "name": "pos-admin",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3005",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.954.0",
+    "@aws-sdk/lib-storage": "^3.954.0",
+    "@prisma/client": "^5.0.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20.9.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.0",
+    "bcryptjs": "^2.4.3",
+    "date-fns": "^2.30.0",
+    "mongodb": "^7.0.0",
+    "next": "^16.0.0",
+    "postcss": "^8.4.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^4.11.0",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^16.0.0",
+    "prisma": "^5.0.0"
+  }
+}
