@@ -1,9 +1,4 @@
 import nodemailer from 'nodemailer'
-
-/**
- * 매 요청 시점(런타임)에 transporter를 생성합니다.
- * SMTP_* (다른 앱과 동일) 또는 EMAIL_* 환경 변수 지원.
- */
 function getTransporter() {
   const user = process.env.SMTP_USER || process.env.EMAIL_USER
   const pass = process.env.SMTP_PASS || process.env.EMAIL_APP_PASSWORD
@@ -11,7 +6,6 @@ function getTransporter() {
     throw new Error('SMTP_USER/SMTP_PASS 또는 EMAIL_USER/EMAIL_APP_PASSWORD 환경 변수를 설정해 주세요.')
   }
   const host = process.env.SMTP_HOST || 'smtp.naver.com'
-  // Render 등 클라우드에서는 465 아웃바운드가 막혀 있어 587(STARTTLS) 사용
   const defaultPort =
     process.env.RENDER === 'true' ? 587 : 465
   const port = parseInt(

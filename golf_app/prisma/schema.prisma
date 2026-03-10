@@ -23,22 +23,6 @@ model User {
 
   @@map("users")
 }
-
-// 삭제된 컬렉션들 - 자동 생성 방지를 위해 주석 처리
-// model Owner {
-//   id           String   @id @default(auto()) @map("_id") @db.ObjectId
-//   email        String   @unique
-//   password     String
-//   name         String
-//   phone        String?
-//   branchNumber String?  @map("branch_number")
-//   createdAt    DateTime @default(now()) @map("created_at")
-//   updatedAt    DateTime @updatedAt @map("updated_at")
-//   status       String   @default("active") @map("status")
-//
-//   @@map("owners")
-// }
-
 model Store {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
@@ -62,29 +46,8 @@ model Store {
   @@index([ownerId])
   @@map("stores")
 }
-
-// model Reservation {
-//   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-//   userId    String   @map("user_id") @db.ObjectId
-//   storeId   String   @map("store_id") @db.ObjectId
-//   date      DateTime
-//   time      String
-//   players   Int?     @default(4)
-//   status    String   @default("PENDING")
-//   createdAt DateTime @default(now()) @map("created_at")
-//   updatedAt DateTime @updatedAt @map("updated_at")
-//
-//   @@index([userId])
-//   @@index([storeId])
-//   @@map("reservations")
-// }
-
 model Favorite {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String   @map("user_id") @db.ObjectId
-  storeId   String   @map("store_id") @db.ObjectId
-  createdAt DateTime @default(now()) @map("created_at")
-  user      User     @relation(fields: [userId], references: [id])
   store     Store    @relation(fields: [storeId], references: [id])
 
   @@unique([userId, storeId])
@@ -97,10 +60,6 @@ model Notice {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
   title          String
   content        String
-  type           String   @default("공지") @map("type")
-  targetAudience String?  @map("target_audience")
-  isImportant    Boolean  @default(false) @map("is_important")
-  createdAt      DateTime @default(now()) @map("created_at")
   updatedAt      DateTime @updatedAt @map("updated_at")
 
   @@map("notices")
@@ -128,9 +87,6 @@ model Comment {
   postId    String   @map("post_id") @db.ObjectId
   userId    String   @map("user_id") @db.ObjectId
   content   String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  post      Post     @relation(fields: [postId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
 
   @@index([postId])

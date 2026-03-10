@@ -14,7 +14,6 @@ export interface Store {
   notice?: string | null
   parking?: string | null
   type?: string | null
-  // 매장 메타데이터 (news 필드에서 파싱)
   facilities?: string[]
   totalRooms?: number
   platform?: string
