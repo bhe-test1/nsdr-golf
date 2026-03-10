@@ -6,7 +6,6 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
-
 model Owner {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   email        String   @unique
@@ -20,9 +19,11 @@ model Owner {
 
   @@map("owners")
 }
-
 model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  password  String
+  name      String
   phone     String?
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -35,6 +36,10 @@ model Reservation {
   userId    String   @map("user_id") @db.ObjectId
   storeId   String   @map("store_id") @db.ObjectId
   date      DateTime
+  time      String
+  players   Int?     @default(4)
+  status    String   @default("PENDING")
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@index([userId])
@@ -49,6 +54,9 @@ model Login {
   email        String
   phone        String
   password     String
+  branchNumber String?  @map("branch_number")
+  status       String   @default("active") @map("status")
+  createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 
   @@map("login")
@@ -58,6 +66,9 @@ model Notice {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   content     String
+  type        String   @default("공지") @map("type")
+  isImportant Boolean  @default(false) @map("is_important")
+  imageUrl    String?  @map("image_url")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
