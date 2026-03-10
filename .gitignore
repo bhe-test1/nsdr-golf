@@ -11,3 +11,5 @@
 .DS_Store
 *.pem
 *.tsbuildinfo
+scripts/mongo_export_backup/
+scripts/mongodb_backup/

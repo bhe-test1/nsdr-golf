@@ -14,22 +14,7 @@ export type Member = {
   status: string
 }
 
-export type RegisterFormData = {
-  memberId: string
-  memberName: string
-  memberPhone?: string
-  playOption: string
-  peopleCount: number
-  startTime: string
-  endTime?: string
-  amount: number
-  /** 결제방식: coupon | cash | card | pos */
-  paymentType?: string
-  /** 결제방법: normal | partial | installment */
-  paymentMethod?: string
-  /** 분할 횟수 (분할결제 시 2회, 3회 등) */
-  splitCount?: number
-}
+
 
 const DEFAULT_PLAY_OPTIONS = [
   { label: '일반', value: '일반', pricePerPerson: 30000 },
@@ -148,7 +133,6 @@ function formatPhoneHyphen(value: string): string {
 interface RegisterModalProps {
   roomNumber: number
   onClose: () => void
-  onConfirm: (data: RegisterFormData) => void
 }
 
 type MemberMode = 'existing' | 'new'

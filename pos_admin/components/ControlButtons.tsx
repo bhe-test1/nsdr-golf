@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { FiPower, FiChevronLeft, FiChevronRight, FiChevronDown, FiSliders } from 'react-icons/fi'
-import { RiDoorOpenLine } from 'react-icons/ri'
 
 interface ControlButtonsProps {
   onBatchClose?: () => void
@@ -53,7 +52,7 @@ export default function ControlButtons({
   // 페이지 번호 생성 (최대 5개 표시)
   const getPageNumbers = () => {
     const pages = []
-    const maxVisible = 5
+    const maxVisible = 1
     
     if (totalPages <= maxVisible) {
       // 전체 페이지가 5개 이하면 모두 표시
@@ -113,7 +112,6 @@ export default function ControlButtons({
               onClick={handleDoorOpen}
               className="w-full px-4 py-3 text-left flex items-center space-x-2 text-gray-700 rounded-t-lg bg-white hover:bg-gray-50 min-h-[3rem]"
             >
-              <RiDoorOpenLine className="w-5 h-5 shrink-0" />
               <span>출입문 열기</span>
             </button>
             <button

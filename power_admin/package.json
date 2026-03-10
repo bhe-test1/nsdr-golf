@@ -17,6 +17,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "dosu": "node scripts/dosu.js",
+    "docker": "node scripts/docker.js",
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
