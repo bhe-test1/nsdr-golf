@@ -68,6 +68,8 @@ model Price {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   ownerId     String   @unique @map("owner_id") @db.ObjectId
   gamePrices  Json     @map("game_prices")
+  foodPrices  Json     @map("food_prices")
+  golfPrices  Json     @map("golf_prices")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
