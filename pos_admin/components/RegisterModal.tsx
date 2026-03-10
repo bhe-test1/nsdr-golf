@@ -133,6 +133,19 @@ function formatPhoneHyphen(value: string): string {
 interface RegisterModalProps {
   roomNumber: number
   onClose: () => void
+  onConfirm: (data: {
+    memberId: string
+    memberName: string
+    memberPhone?: string
+    playOption: string
+    peopleCount: number
+    startTime: string
+    endTime?: string
+    amount: number
+    paymentType: string
+    paymentMethod: string
+    splitCount: number
+  }) => void
 }
 
 type MemberMode = 'existing' | 'new'
